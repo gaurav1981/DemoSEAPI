@@ -10,9 +10,15 @@ import UIKit
 
 class MainTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet weak var avatarLabel: UIImageView!
+    @IBOutlet weak var tagLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    
+        
     override func awakeFromNib() {
+
         super.awakeFromNib()
         // Initialization code
     }

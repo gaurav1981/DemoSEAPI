@@ -14,6 +14,7 @@
 		5B8DDC281C959CE30069A3D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B8DDC261C959CE30069A3D4 /* LaunchScreen.storyboard */; };
 		5BCF7AC71C97C9FB00C2A350 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCF7AC61C97C9FB00C2A350 /* MainTableViewController.swift */; };
 		5BCF7AC91C97CA1B00C2A350 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCF7AC81C97CA1B00C2A350 /* MainTableViewCell.swift */; };
+		5BCF7AF31C9A8C9300C2A350 /* Results.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCF7AF21C9A8C9300C2A350 /* Results.swift */; };
 		5EB29340101E2FEA48F9FBA3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29EF1ACCD839A548074C5023 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		5B8DDC291C959CE30069A3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BCF7AC61C97C9FB00C2A350 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		5BCF7AC81C97CA1B00C2A350 /* MainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		5BCF7AF21C9A8C9300C2A350 /* Results.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Results.swift; sourceTree = "<group>"; };
 		7F550AAC315C3EF56B6E44AA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +83,7 @@
 				5B8DDC261C959CE30069A3D4 /* LaunchScreen.storyboard */,
 				5B8DDC291C959CE30069A3D4 /* Info.plist */,
 				5BCF7AC81C97CA1B00C2A350 /* MainTableViewCell.swift */,
+				5BCF7AF21C9A8C9300C2A350 /* Results.swift */,
 			);
 			path = DemoSEAPI;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				5BCF7AC71C97C9FB00C2A350 /* MainTableViewController.swift in Sources */,
 				5BCF7AC91C97CA1B00C2A350 /* MainTableViewCell.swift in Sources */,
 				5B8DDC1E1C959CE30069A3D4 /* AppDelegate.swift in Sources */,
+				5BCF7AF31C9A8C9300C2A350 /* Results.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
