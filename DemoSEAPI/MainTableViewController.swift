@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import ImageLoader
 
 class MainTableViewController: UITableViewController,UISearchResultsUpdating{
 
@@ -19,12 +20,13 @@ class MainTableViewController: UITableViewController,UISearchResultsUpdating{
     
     // empty array to store the search results
     var searchResults: [SearchResult] = []
-   
+    
     
   
     
 func alamofireFunction() {
-        
+    
+    
         
         Alamofire.request(.GET, "https://api.stackexchange.com/2.2/questions?=%20\(searchKeyword)%20viewpage=1&fromdate=1183075200&todate=2554416000&order=asc&sort=activity&tagged=ios&site=stackoverflow").responseJSON { (response) -> Void in
             
@@ -44,7 +46,7 @@ func alamofireFunction() {
                         result.question = json["items"][idx]["title"].stringValue
                         result.image = json["items"][idx]["owner"]["profile_image"].stringValue
                         self.searchResults.append(result)
-                        
+                        //ImageLoader.load(result.image)
                         
                         
                         
@@ -148,12 +150,9 @@ func alamofireFunction() {
      
         cell.questionLabel.text = searchResults[indexPath.row].question
         cell.nameLabel.text = searchResults[indexPath.row].name
-        
-     //cell.avatarLabel.image = UIImage(
-        
-        
-        //cell.avatarLabel.image = searchResults[indexPath.row].image
-       
+        cell.avatarLabel.load(searchResults[indexPath.row].image)
+     
+            
         
         return cell
     }
