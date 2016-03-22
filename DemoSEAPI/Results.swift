@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class SearchResult {
+class Response {
     var name: String = ""
     var question: String = ""
     var image: String = ""

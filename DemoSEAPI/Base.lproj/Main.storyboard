@@ -19,10 +19,10 @@
                                 <rect key="frame" x="0.0" y="92" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y0D-LX-mBO" id="jo0-Ns-CNz">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Rdl-re-Ekx">
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Rdl-re-Ekx">
                                             <rect key="frame" x="8" y="10" width="60" height="60"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xud-MX-cxe">
@@ -36,8 +36,11 @@
                                                 </imageView>
                                             </subviews>
                                         </stackView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="Question" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4IL-Ln-zey">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Question" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4IL-Ln-zey">
                                             <rect key="frame" x="76" y="30" width="236" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="B8C-lY-9Vl"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -57,6 +60,7 @@
                                         <constraint firstItem="f8B-fH-myh" firstAttribute="leading" secondItem="xud-MX-cxe" secondAttribute="trailing" constant="8" id="8vv-PM-5An"/>
                                         <constraint firstItem="f8B-fH-myh" firstAttribute="top" secondItem="jo0-Ns-CNz" secondAttribute="topMargin" constant="2" id="9Vq-db-nX6"/>
                                         <constraint firstItem="4IL-Ln-zey" firstAttribute="leading" secondItem="xud-MX-cxe" secondAttribute="trailing" constant="8" id="Uft-hx-rzf"/>
+                                        <constraint firstItem="4IL-Ln-zey" firstAttribute="bottom" secondItem="Rdl-re-Ekx" secondAttribute="bottom" id="VeE-ld-ic0"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="4IL-Ln-zey" secondAttribute="trailing" id="Ywn-a9-OpW"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="f8B-fH-myh" secondAttribute="trailing" constant="120" id="jmn-lz-lz5"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="xud-MX-cxe" secondAttribute="leading" id="nqX-Uz-jQi"/>

@@ -14,13 +14,15 @@ import ImageLoader
 class MainTableViewController: UITableViewController,UISearchResultsUpdating{
 
     
-  let searchController = UISearchController(searchResultsController: nil)
+    var searchController:UISearchController!
 
-    var searchKeyword: String = "questions"
+    var searchKeyword: String? // = "questions"
     
     // empty array to store the search results
-    var searchResults: [SearchResult] = []
+    var jsonResponse: [Response] = []
     
+    //empty array to store the filtered results
+    var searchResults:[Response] = []
     
   
     
@@ -40,60 +42,47 @@ func alamofireFunction() {
                     
                     
                     for (var idx=0; idx<=json["items"].count; idx++) {
-                        let result = SearchResult()
+                        let result = Response()
                         //print(json["items"][idx]["title"].stringValue)
                         result.name = json["items"][idx]["owner"]["display_name"].stringValue
                         result.question = json["items"][idx]["title"].stringValue
                         result.image = json["items"][idx]["owner"]["profile_image"].stringValue
-                        self.searchResults.append(result)
-                        //ImageLoader.load(result.image)
+                        self.jsonResponse.append(result)
                         
-                        
-                        
-                    }
+                        }
                     
                     self.tableView.reloadData()
-                    print(self.searchResults.count)
-                    
-
-
-                    
+                    print(self.jsonResponse.count)
                 }
                 
             case .Failure:
                 print("error")
-                
-                
-                
-            }
+                }
         }
         
         
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = true
-        tableView.tableHeaderView = searchController.searchBar
-
+    
+    searchController = UISearchController(searchResultsController: nil)
+    tableView.tableHeaderView = searchController.searchBar
+    searchController.searchResultsUpdater = self
+    tableView.tableHeaderView = searchController.searchBar
+        
+        
+        
+        
+        
         // Uncomment the following line to preserve selection between presentations
          self.clearsSelectionOnViewWillAppear = false
 
          //Uncomment the following line to display an Edit button in the navigation bar for this view controller.
          self.navigationItem.rightBarButtonItem = self.editButtonItem()
      
+        
         
         
         
@@ -111,16 +100,33 @@ func alamofireFunction() {
         
         
         }
-        
-        
+    
 
+    
+    
     func updateSearchResultsForSearchController(searchController: UISearchController) {
+        
+//        if let searchText = searchController.searchBar.text {
+//            filterContentForSearchText(searchText)
+//            tableView.reloadData()
+//        }
         
     }
     
-    
-    
-    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if let searchText = searchController.searchBar.text {
+            searchKeyword = searchText
+        
+        
+        } else {
+            searchKeyword = "questions"
+        
+        }
+        alamofireFunction()
+        tableView.reloadData()
+        
+
+    }
     
     
 
@@ -145,14 +151,24 @@ func alamofireFunction() {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! MainTableViewCell
 
-        // Configure the cell...
+      //  let response = (searchController.) ? searchResults[indexPath.row] : jsonResponse[indexPath.row]
         
-     
+        if searchResults.isEmpty {
+        
+        // Configure the cell...
+        cell.questionLabel.text = jsonResponse[indexPath.row].question
+        cell.nameLabel.text = jsonResponse[indexPath.row].name
+            cell.avatarLabel.load(jsonResponse[indexPath.row].image) }
+            else {
         cell.questionLabel.text = searchResults[indexPath.row].question
         cell.nameLabel.text = searchResults[indexPath.row].name
-        cell.avatarLabel.load(searchResults[indexPath.row].image)
-     
-            
+            cell.avatarLabel.load(searchResults[indexPath.row].image)
+        
+        }
+        
+            //        cell.nameLabel.text = response.name
+//            cell.avatarLabel.load(response.image) }
+        
         
         return cell
     }
@@ -170,7 +186,12 @@ func alamofireFunction() {
     
         override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             // #warning Incomplete implementation, return the number of rows
-            return searchResults.count
+            
+            if searchController.active {
+                return searchResults.count
+            } else {
+            return jsonResponse.count
+            }
             
     }
 
