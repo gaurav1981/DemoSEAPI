@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B47B29C1C9D6D9E002ABEB7 /* ImageLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B47B2971C9D6D8A002ABEB7 /* ImageLoader.framework */; };
 		5B8DDC1E1C959CE30069A3D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8DDC1D1C959CE30069A3D4 /* AppDelegate.swift */; };
 		5B8DDC201C959CE30069A3D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8DDC1F1C959CE30069A3D4 /* ViewController.swift */; };
 		5B8DDC231C959CE30069A3D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B8DDC211C959CE30069A3D4 /* Main.storyboard */; };
@@ -18,9 +19,35 @@
 		5EB29340101E2FEA48F9FBA3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29EF1ACCD839A548074C5023 /* Pods.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5B47B2961C9D6D8A002ABEB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B47B2911C9D6D8A002ABEB7 /* ImageLoader.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65B2CF1119EF9F6600DA3605;
+			remoteInfo = ImageLoader;
+		};
+		5B47B2981C9D6D8A002ABEB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B47B2911C9D6D8A002ABEB7 /* ImageLoader.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65B2CF1C19EF9F6600DA3605;
+			remoteInfo = ImageLoaderTests;
+		};
+		5B47B29A1C9D6D94002ABEB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B47B2911C9D6D8A002ABEB7 /* ImageLoader.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 65B2CF1019EF9F6600DA3605;
+			remoteInfo = ImageLoader;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		29EF1ACCD839A548074C5023 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BA5F607DFEFBFEEA55B9C9D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		5B47B28F1C9D6C6E002ABEB7 /* ImageLoader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageLoader.framework; path = "ImageLoaderSwift-master/build/Debug-iphoneos/ImageLoader.framework"; sourceTree = "<group>"; };
+		5B47B2911C9D6D8A002ABEB7 /* ImageLoader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ImageLoader.xcodeproj; path = "ImageLoaderSwift-master/ImageLoader.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		5B8DDC1A1C959CE30069A3D4 /* DemoSEAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoSEAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B8DDC1D1C959CE30069A3D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B8DDC1F1C959CE30069A3D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B47B29C1C9D6D9E002ABEB7 /* ImageLoader.framework in Frameworks */,
 				5EB29340101E2FEA48F9FBA3 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,9 +77,19 @@
 		09FCA9CC5F5C0043D033200C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B47B28F1C9D6C6E002ABEB7 /* ImageLoader.framework */,
 				29EF1ACCD839A548074C5023 /* Pods.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5B47B2921C9D6D8A002ABEB7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5B47B2971C9D6D8A002ABEB7 /* ImageLoader.framework */,
+				5B47B2991C9D6D8A002ABEB7 /* ImageLoaderTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		5B8DDC111C959CE30069A3D4 = {
@@ -75,6 +113,7 @@
 		5B8DDC1C1C959CE30069A3D4 /* DemoSEAPI */ = {
 			isa = PBXGroup;
 			children = (
+				5B47B2911C9D6D8A002ABEB7 /* ImageLoader.xcodeproj */,
 				5B8DDC1D1C959CE30069A3D4 /* AppDelegate.swift */,
 				5B8DDC1F1C959CE30069A3D4 /* ViewController.swift */,
 				5BCF7AC61C97C9FB00C2A350 /* MainTableViewController.swift */,
@@ -114,6 +153,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5B47B29B1C9D6D94002ABEB7 /* PBXTargetDependency */,
 			);
 			name = DemoSEAPI;
 			productName = DemoSEAPI;
@@ -147,12 +187,35 @@
 			mainGroup = 5B8DDC111C959CE30069A3D4;
 			productRefGroup = 5B8DDC1B1C959CE30069A3D4 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5B47B2921C9D6D8A002ABEB7 /* Products */;
+					ProjectRef = 5B47B2911C9D6D8A002ABEB7 /* ImageLoader.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				5B8DDC191C959CE30069A3D4 /* DemoSEAPI */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		5B47B2971C9D6D8A002ABEB7 /* ImageLoader.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ImageLoader.framework;
+			remoteRef = 5B47B2961C9D6D8A002ABEB7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5B47B2991C9D6D8A002ABEB7 /* ImageLoaderTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ImageLoaderTests.xctest;
+			remoteRef = 5B47B2981C9D6D8A002ABEB7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5B8DDC181C959CE30069A3D4 /* Resources */ = {
@@ -229,6 +292,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5B47B29B1C9D6D94002ABEB7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ImageLoader;
+			targetProxy = 5B47B29A1C9D6D94002ABEB7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5B8DDC211C959CE30069A3D4 /* Main.storyboard */ = {
@@ -336,6 +407,7 @@
 			baseConfigurationReference = 7F550AAC315C3EF56B6E44AA /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = DemoSEAPI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sample.hello.DemoSEAPI;
@@ -348,6 +420,7 @@
 			baseConfigurationReference = 4BA5F607DFEFBFEEA55B9C9D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = DemoSEAPI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sample.hello.DemoSEAPI;
