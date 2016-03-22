@@ -126,6 +126,8 @@ func alamofireFunction() {
         tableView.reloadData()
         
 
+        
+        
     }
     
     
