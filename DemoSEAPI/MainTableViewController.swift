@@ -14,9 +14,9 @@ import ImageLoader
 class MainTableViewController: UITableViewController,UISearchResultsUpdating{
 
     
-    var searchController:UISearchController!
+    var searchController = UISearchController(searchResultsController: nil)
 
-    var searchKeyword: String? // = "questions"
+    var searchKeyword: String = ""  // = "questions"
     
     // empty array to store the search results
     var jsonResponse: [Response] = []
@@ -24,13 +24,84 @@ class MainTableViewController: UITableViewController,UISearchResultsUpdating{
     //empty array to store the filtered results
     var searchResults:[Response] = []
     
-  
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
     
-func alamofireFunction() {
+    tableView.tableHeaderView = searchController.searchBar
+    searchController.searchResultsUpdater = self
+    searchController.dimsBackgroundDuringPresentation = false
+    definesPresentationContext = true
+        
+        // Uncomment the following line to preserve selection between presentations
+         self.clearsSelectionOnViewWillAppear = false
+         //Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+         self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        //Enabling self sizing cells
+        tableView.estimatedRowHeight = 80.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+
+        alamofireFunction()
+        }
     
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        
+        if searchController.active && searchController != ""{
+            return searchResults.count
+        }
+        
+        else {
+            return jsonResponse.count
+        }
+        
+    }
+    
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! MainTableViewCell
+        
+        
+        
+//        if searchController.active && searchController != ""{
+//            print(searchResults.count)
+//            cell.questionLabel.text = searchResults[indexPath.row].question
+//            cell.nameLabel.text = searchResults[indexPath.row].name
+//            cell.avatarLabel.load(searchResults[indexPath.row].image)
+//        } else {
+//            cell.questionLabel.text = jsonResponse[indexPath.row].question
+//            cell.nameLabel.text = jsonResponse[indexPath.row].name
+//            cell.avatarLabel.load(jsonResponse[indexPath.row].image)
+//        }
     
         
-        Alamofire.request(.GET, "https://api.stackexchange.com/2.2/questions?=%20\(searchKeyword)%20viewpage=1&fromdate=1183075200&todate=2554416000&order=asc&sort=activity&tagged=ios&site=stackoverflow").responseJSON { (response) -> Void in
+        if searchResults.isEmpty {
+            
+            // Configure the cell...
+            cell.questionLabel.text = jsonResponse[indexPath.row].question
+            cell.nameLabel.text = jsonResponse[indexPath.row].name
+            cell.avatarLabel.load(jsonResponse[indexPath.row].image) }
+        else {
+            cell.questionLabel.text = searchResults[indexPath.row].question
+            cell.nameLabel.text = searchResults[indexPath.row].name
+            cell.avatarLabel.load(searchResults[indexPath.row].image)
+            
+        }
+        
+        //        cell.nameLabel.text = response.name
+        //            cell.avatarLabel.load(response.image) }
+        
+        
+        return cell
+    }
+    
+    func alamofireFunction() {
+        Alamofire.request(.GET, "https://api.stackexchange.com/2.2/search?order=asc&sort=activity&tagged=ios&intitle=\(searchKeyword)%20controller&site=stackoverflow").responseJSON { (response) -> Void in
             
             switch response.result {
                 
@@ -47,69 +118,40 @@ func alamofireFunction() {
                         result.name = json["items"][idx]["owner"]["display_name"].stringValue
                         result.question = json["items"][idx]["title"].stringValue
                         result.image = json["items"][idx]["owner"]["profile_image"].stringValue
-                        self.jsonResponse.append(result)
                         
+                        
+                        if self.searchController.active && self.searchController != ""{
+                        self.searchResults.append(result)
+                        
+                        } else {
+                            self.jsonResponse.append(result)
                         }
+                        
+                        
+                    }
                     
                     self.tableView.reloadData()
-                    print(self.jsonResponse.count)
+                    //print(self.jsonResponse.count)
                 }
                 
             case .Failure:
                 print("error")
-                }
+            }
         }
         
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    
-    searchController = UISearchController(searchResultsController: nil)
-    tableView.tableHeaderView = searchController.searchBar
-    searchController.searchResultsUpdater = self
-    tableView.tableHeaderView = searchController.searchBar
-        
-        
-        
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-         self.clearsSelectionOnViewWillAppear = false
-
-         //Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem()
-     
-        
-        
-        
-        
-        
-        //Enabling self sizing cells
-        tableView.estimatedRowHeight = 80.0
-        tableView.rowHeight = UITableViewAutomaticDimension
-        
-
-        
-        
-        alamofireFunction()
-        
-        
-        
-        
-        }
-    
-
     
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         
-//        if let searchText = searchController.searchBar.text {
-//            filterContentForSearchText(searchText)
-//            tableView.reloadData()
-//        }
+        if let searchText = searchController.searchBar.text {
+          
+            searchKeyword = searchText
+            print("the search text is \(searchText)")
+            tableView.reloadData()
+        }
         
     }
     
@@ -118,87 +160,32 @@ func alamofireFunction() {
             searchKeyword = searchText
         
         
+            
         } else {
-            searchKeyword = "questions"
-        
+            searchKeyword = ""
+            
         }
-        alamofireFunction()
-        tableView.reloadData()
         
+        //this print statement is not printing anything
+        print("the keyword after hitting search is \(searchKeyword)")
 
+        
+        alamofireFunction()
+        
         
         
     }
-    
-    
-
-    
-    
-    
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    
-    
     
     // MARK: - Table view data source
 
 
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! MainTableViewCell
-
-      //  let response = (searchController.) ? searchResults[indexPath.row] : jsonResponse[indexPath.row]
-        
-        if searchResults.isEmpty {
-        
-        // Configure the cell...
-        cell.questionLabel.text = jsonResponse[indexPath.row].question
-        cell.nameLabel.text = jsonResponse[indexPath.row].name
-            cell.avatarLabel.load(jsonResponse[indexPath.row].image) }
-            else {
-        cell.questionLabel.text = searchResults[indexPath.row].question
-        cell.nameLabel.text = searchResults[indexPath.row].name
-            cell.avatarLabel.load(searchResults[indexPath.row].image)
-        
-        }
-        
-            //        cell.nameLabel.text = response.name
-//            cell.avatarLabel.load(response.image) }
-        
-        
-        return cell
-    }
 
     
-    
-    
-
-    
-    
-        override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-            // #warning Incomplete implementation, return the number of sections
-            return 1
-        }
-    
-        override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            // #warning Incomplete implementation, return the number of rows
-            
-            if searchController.active {
-                return searchResults.count
-            } else {
-            return jsonResponse.count
-            }
-            
-    }
-
-    
-    
-    
+  
 
 }
