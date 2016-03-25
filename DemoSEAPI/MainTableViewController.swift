@@ -72,8 +72,8 @@ return searchResults.count
         
         
         
-        if searchController.active {
-            print("no of elements in searchResults is \(searchResults.count)")
+        if searchController.active  && searchController != "" {
+            //print("no of elements in searchResults is \(searchResults.count)")
             cell.questionLabel.text = searchResults[indexPath.row].question
             cell.nameLabel.text = searchResults[indexPath.row].name
             cell.avatarLabel.load(searchResults[indexPath.row].image)
@@ -131,20 +131,14 @@ return searchResults.count
                         result.image = json["items"][idx]["owner"]["profile_image"].stringValue
                         //if self.searchController.active && self.searchController != ""{
                         
-                        print(json["items"][idx]["title"].stringValue)
+                       // print(json["items"][idx]["title"].stringValue)
                         
-                        if self.searchResults.isEmpty {
-                            self.searchResults.append(result)
-                            self.tableView.reloadData()
-                            
-                        } else {
-                            self.searchResults.removeAll()
-                            self.searchResults.append(result)
-                            self.tableView.reloadData()
-                            
-                        }
-                      
                         
+                        self.searchResults.append(result)
+                        
+                    print("number of items in the array is \(self.searchResults.count)")
+                       
+                        self.tableView.reloadData()
                     }
                     
     
@@ -173,8 +167,17 @@ return searchResults.count
           
             searchKeyword = searchText
             
-            
+            if searchResults.isEmpty {
             alamofireFunction(searchKeyword)
+            tableView.reloadData()
+            } else {
+                searchResults.removeAll()
+                alamofireFunction(searchKeyword)
+                tableView.reloadData()
+            }
+            
+            
+            
             
 
             
@@ -194,10 +197,5 @@ return searchResults.count
     }
     
     // MARK: - Table view data source
-
-
-
-    
-  
 
 }
