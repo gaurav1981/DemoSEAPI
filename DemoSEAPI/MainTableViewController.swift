@@ -11,18 +11,20 @@ import Alamofire
 import SwiftyJSON
 import ImageLoader
 
-class MainTableViewController: UITableViewController,UISearchResultsUpdating{
+class MainTableViewController: UITableViewController,UISearchResultsUpdating {
 
     
     var searchController = UISearchController(searchResultsController: nil)
 
-    var searchKeyword: String = ""  // = "questions"
+    var searchKeyword: String! // = ""
     
     // empty array to store the search results
     var jsonResponse: [Response] = []
     
     //empty array to store the filtered results
     var searchResults:[Response] = []
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +34,7 @@ class MainTableViewController: UITableViewController,UISearchResultsUpdating{
     searchController.searchResultsUpdater = self
     searchController.dimsBackgroundDuringPresentation = false
     definesPresentationContext = true
-        
+    
         // Uncomment the following line to preserve selection between presentations
          self.clearsSelectionOnViewWillAppear = false
          //Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -41,7 +43,7 @@ class MainTableViewController: UITableViewController,UISearchResultsUpdating{
         tableView.estimatedRowHeight = 80.0
         tableView.rowHeight = UITableViewAutomaticDimension
 
-        alamofireFunction()
+       // alamofireFunction()
         }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -52,14 +54,16 @@ class MainTableViewController: UITableViewController,UISearchResultsUpdating{
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        if searchController.active && searchController != ""{
-            return searchResults.count
-        }
-        
-        else {
-            return jsonResponse.count
-        }
-        
+//        if searchController.active && searchController != ""{
+//            return searchResults.count
+//        }
+//        
+//        else {
+//            return jsonResponse.count
+//        }
+//        
+return searchResults.count
+    
     }
     
     
@@ -68,30 +72,32 @@ class MainTableViewController: UITableViewController,UISearchResultsUpdating{
         
         
         
-//        if searchController.active && searchController != ""{
-//            print(searchResults.count)
-//            cell.questionLabel.text = searchResults[indexPath.row].question
-//            cell.nameLabel.text = searchResults[indexPath.row].name
-//            cell.avatarLabel.load(searchResults[indexPath.row].image)
-//        } else {
+        if searchController.active {
+            print("no of elements in searchResults is \(searchResults.count)")
+            cell.questionLabel.text = searchResults[indexPath.row].question
+            cell.nameLabel.text = searchResults[indexPath.row].name
+            cell.avatarLabel.load(searchResults[indexPath.row].image)
+       }
+            //else {
+//            print(jsonResponse.count)
 //            cell.questionLabel.text = jsonResponse[indexPath.row].question
 //            cell.nameLabel.text = jsonResponse[indexPath.row].name
 //            cell.avatarLabel.load(jsonResponse[indexPath.row].image)
 //        }
     
         
-        if searchResults.isEmpty {
-            
-            // Configure the cell...
-            cell.questionLabel.text = jsonResponse[indexPath.row].question
-            cell.nameLabel.text = jsonResponse[indexPath.row].name
-            cell.avatarLabel.load(jsonResponse[indexPath.row].image) }
-        else {
-            cell.questionLabel.text = searchResults[indexPath.row].question
-            cell.nameLabel.text = searchResults[indexPath.row].name
-            cell.avatarLabel.load(searchResults[indexPath.row].image)
-            
-        }
+//        if searchResults.isEmpty {
+//            
+//            // Configure the cell...
+//            cell.questionLabel.text = jsonResponse[indexPath.row].question
+//            cell.nameLabel.text = jsonResponse[indexPath.row].name
+//            cell.avatarLabel.load(jsonResponse[indexPath.row].image) }
+//        else {
+//            cell.questionLabel.text = searchResults[indexPath.row].question
+//            cell.nameLabel.text = searchResults[indexPath.row].name
+//            cell.avatarLabel.load(searchResults[indexPath.row].image)
+//            
+//        }
         
         //        cell.nameLabel.text = response.name
         //            cell.avatarLabel.load(response.image) }
@@ -100,12 +106,17 @@ class MainTableViewController: UITableViewController,UISearchResultsUpdating{
         return cell
     }
     
-    func alamofireFunction() {
-        Alamofire.request(.GET, "https://api.stackexchange.com/2.2/search?order=asc&sort=activity&tagged=ios&intitle=\(searchKeyword)%20controller&site=stackoverflow").responseJSON { (response) -> Void in
+    func alamofireFunction(query: String) {
+        //query = searchKeyword
+        
+        Alamofire.request(.GET, "https://api.stackexchange.com/2.2/search?order=asc&sort=activity&tagged=ios&intitle=\(query)%20controller&site=stackoverflow").responseJSON { (response) -> Void in
             
             switch response.result {
                 
             case .Success:
+                
+                
+                
                 if let value = response.result.value {
                     
                     
@@ -118,20 +129,25 @@ class MainTableViewController: UITableViewController,UISearchResultsUpdating{
                         result.name = json["items"][idx]["owner"]["display_name"].stringValue
                         result.question = json["items"][idx]["title"].stringValue
                         result.image = json["items"][idx]["owner"]["profile_image"].stringValue
+                        //if self.searchController.active && self.searchController != ""{
                         
+                        print(json["items"][idx]["title"].stringValue)
                         
-                        if self.searchController.active && self.searchController != ""{
-                        self.searchResults.append(result)
-                        
+                        if self.searchResults.isEmpty {
+                            self.searchResults.append(result)
+                            self.tableView.reloadData()
+                            
                         } else {
-                            self.jsonResponse.append(result)
+                            self.searchResults.removeAll()
+                            self.searchResults.append(result)
+                            self.tableView.reloadData()
+                            
                         }
-                        
+                      
                         
                     }
                     
-                    self.tableView.reloadData()
-                    //print(self.jsonResponse.count)
+    
                 }
                 
             case .Failure:
@@ -144,38 +160,34 @@ class MainTableViewController: UITableViewController,UISearchResultsUpdating{
     
     
     
+    
+    
+    
+
+    
+    
     func updateSearchResultsForSearchController(searchController: UISearchController) {
+        
         
         if let searchText = searchController.searchBar.text {
           
             searchKeyword = searchText
-            print("the search text is \(searchText)")
-            tableView.reloadData()
-        }
-        
-    }
-    
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        if let searchText = searchController.searchBar.text {
-            searchKeyword = searchText
-        
-        
             
-        } else {
-            searchKeyword = ""
             
-        }
-        
-        //this print statement is not printing anything
-        print("the keyword after hitting search is \(searchKeyword)")
+            alamofireFunction(searchKeyword)
+            
 
-        
-        alamofireFunction()
-        
-        
-        
+            
+        }
+        //tableView.reloadData()
     }
+  
     
+    
+    
+    
+
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
