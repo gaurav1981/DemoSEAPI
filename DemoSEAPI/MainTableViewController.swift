@@ -27,7 +27,7 @@ class MainTableViewController: UITableViewController, UISearchBarDelegate{
         didSet {
             tableView.reloadData()
         }
-    }
+    } 
     
     override func viewDidLoad() {
         super.viewDidLoad()
