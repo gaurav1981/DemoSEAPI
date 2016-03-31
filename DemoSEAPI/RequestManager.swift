@@ -27,33 +27,16 @@ var searchResults = [JSON]()
     
     func alamofireFunction(query: String) {
         
-//        let url = "https://api.stackexchange.com/2.2/search?\(pageString)order=asc&sort=activity&tagged=ios&intitle=\(query)&%20controller&site=stackoverflow"
+
         
         let url = "https://api.stackexchange.com/2.2/search?\(pageString)order=desc&sort=activity&intitle=\(query)&site=stackoverflow"
         Alamofire.request(.GET, url).responseJSON { (response) -> Void in
             
-                            if let value = response.result.value  as? [String: AnyObject] {
-                    //print("value is \(value)")
+                                if let value = response.result.value  as? [String: AnyObject] {
                                 let items = JSON(value["items"]!).arrayValue
                                 self.hasMore = JSON(value["has_more"]!).boolValue
                                 self.searchResults += items
                                 NSNotificationCenter.defaultCenter().postNotificationName("searchResultsUpdated", object: nil  )
-                                
-
-                                
-                    //let json = JSON(value)
-//                    for (var idx=0; idx<=json["items"].count; idx++) {
-//                    
-//                        let result = Response()
-//                        result.name = json["items"]["owner"]["display_name"].stringValue
-//                        result.question = json["items"]["title"].stringValue
-//                        result.image = json["items"]["owner"]["profile_image"].stringValue
-//                        self.searchResults.append(result)
-//                        
-//                        print("number of items in the array is \(self.searchResults.count)")
-//                        
-//                        
-//                    }
                     
                     
                 }
@@ -64,7 +47,7 @@ var searchResults = [JSON]()
     }
     
     //to load the next page
-    func getNextPage(query: String) {
+    func getNextPage(query: String) {    // validated text as ip parameter
         pageNumber += 1
         alamofireFunction(query)
     }

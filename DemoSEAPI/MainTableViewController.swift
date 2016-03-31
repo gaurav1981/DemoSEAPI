@@ -19,7 +19,7 @@ class MainTableViewController: UITableViewController, UISearchBarDelegate{
     
     
     var validatedText: String{
-        return searchController.searchBar.text!.stringByReplacingOccurrencesOfString(" ", withString: "").lowercaseString
+        return searchController.searchBar.text!.stringByReplacingOccurrencesOfString(" ", withString: "%20").lowercaseString
     }
     
     //empty array to store the filtered results
@@ -39,25 +39,23 @@ class MainTableViewController: UITableViewController, UISearchBarDelegate{
     definesPresentationContext = true
         
         
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateSearchResults", name: "searchResultsUpdated", object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainTableViewController.updateSearchResults), name: "searchResultsUpdated", object: nil)
         
         //Enabling self sizing cells
         tableView.estimatedRowHeight = 80.0
         tableView.rowHeight = UITableViewAutomaticDimension
-
-    
-        }
+ }
     
     func updateSearchResults() {
         
         //print(requestManager.searchResults)
         searchResults = requestManager.searchResults
-    }
+        }
     
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
+        }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -74,14 +72,17 @@ class MainTableViewController: UITableViewController, UISearchBarDelegate{
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! MainTableViewCell
+       
+        // for circular images
+        cell.avatarLabel.layer.cornerRadius = 30
+        cell.avatarLabel.clipsToBounds = true
+        
         
         cell.nameLabel?.text = searchResults[indexPath.row]["owner"]["display_name"].stringValue
         cell.questionLabel?.text = searchResults[indexPath.row]["title"].stringValue
         cell.avatarLabel.load(searchResults[indexPath.row]["owner"]["profile_image"].stringValue)
 
       
-        
-       
         if indexPath.row == searchResults.count - 10 {
             if requestManager.hasMore {
                 requestManager.getNextPage(validatedText)
@@ -96,9 +97,9 @@ class MainTableViewController: UITableViewController, UISearchBarDelegate{
     
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        requestManager.resetSearch()
-        updateSearchResults()
-        requestManager.alamofireFunction(validatedText)
+        requestManager.resetSearch() //empties the array
+        updateSearchResults() // updates the populated array with emptied array
+        requestManager.alamofireFunction(validatedText) //calls the function with the validatedText
        
         
     }
@@ -109,5 +110,13 @@ class MainTableViewController: UITableViewController, UISearchBarDelegate{
     }
     
     // MARK: - Table view data source
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
